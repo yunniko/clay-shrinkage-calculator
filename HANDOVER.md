@@ -6,9 +6,15 @@ in `E:\CLAUDE\COMPANY\`.
 
 ## Current state
 
-Built 2026-09-07 by the svc-lab automation loop. Four tools, no database.
-See this run's log in `svc-lab/automation/logs/` for the exact
-build/test/deploy verification output.
+**Live at https://clay-shrinkage-calculator.svc.julienika.cz** (deployed
+2026-09-07). Built by the svc-lab automation loop's shadow trial (four
+tools, no database); the deploy step failed on that run due to a bug in
+the shared `deploy-service.ps1` script (see D6), fixed and re-verified
+the same day by an interactive session using this exact build. The
+AdSense auto-ads script was also added at that point (the automated
+build predated its rollout to the shared template). See the automated
+run's own log at `svc-lab/run-logs/run-2026-09-07T124931Z.md` for the
+original build/test verification output.
 
 ## How things fit together
 
@@ -77,17 +83,18 @@ searchers and the closest existing competitor tool (ClayCalc's
 "shrinkage calculator") use "clay shrinkage" — matching that phrasing is
 better for the search terms this needs to rank for.
 
-**D6 — Deploy blocked on a bug in `svc-lab/automation/scripts/
-deploy-service.ps1`, not on anything in this project.** See
-`GOALS.md`'s progress log for the full diagnosis: its port-freeness
-check pipes through `grep -c`, which exits 1 when the count is 0 (the
-port-is-free case) and the script's remote-command runner throws on any
-non-zero exit — so the check fails whether the port is free or occupied.
-This project's own build (M1) and GitHub push (M1b) are both done and
-verified; only the VPS deploy step is blocked, and only because of the
-shared automation script, not this service's code. Do not re-attempt the
-deploy from an automation run until that script is fixed — it will fail
-the same way for any port.
+**D6 — Deploy was blocked on a bug in `svc-lab/automation/scripts/
+deploy-service.ps1`, not on anything in this project — now fixed.** See
+`GOALS.md`'s progress log for the full original diagnosis (this
+project's own automated run correctly root-caused it): its
+port-freeness check piped through `grep -c`, which exits 1 when the
+count is 0 (the port-is-free case), and the script's remote-command
+runner threw on any non-zero exit — so the check failed whether the
+port was free or occupied. Fixed same-day in
+`svc-lab/automation/scripts/deploy-service.ps1` (see
+`svc-lab/automation/HANDOVER.md` D9) and re-verified by deploying this
+exact build through the corrected script — succeeded cleanly on the
+first attempt.
 
 ## Owner action list
 

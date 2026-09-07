@@ -25,6 +25,6 @@ npx playwright test   # e2e — real browser flows for all four tools
 
 ## Current state
 
-Built and verified locally 2026-09-07 (unit + e2e tests passing,
-production build succeeds). See `HANDOVER.md` for the shrinkage math and
-sourcing notes, `GOALS.md` for deploy status.
+Live at https://clay-shrinkage-calculator.svc.julienika.cz (deployed
+2026-09-07). See `HANDOVER.md` for the shrinkage math and sourcing
+notes, `GOALS.md` for the full deploy history.

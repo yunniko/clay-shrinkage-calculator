@@ -8,7 +8,7 @@ conventions in `E:\CLAUDE\COMPANY\GOALS.md`.
 
 ## Active goals
 
-### G-001 · Clay shrinkage calculators — BLOCKED
+### G-001 · Clay shrinkage calculators — ACTIVE
 - **What:** Four tools at `clay-shrinkage-calculator.svc.julienika.cz`
   (repo: https://github.com/yunniko/clay-shrinkage-calculator, public,
   pushed): a shrinkage percentage calculator (`/shrinkage-percentage`), a
@@ -35,17 +35,25 @@ conventions in `E:\CLAUDE\COMPANY\GOALS.md`.
       `npx vitest run`, `npx playwright test`, `npx eslint .`).
 - [x] M1b — Ship: git repo created and pushed (public,
       `yunniko/clay-shrinkage-calculator`) via `init-repo.ps1`. ✔ 2026-09-07.
-- [ ] M2 — Deploy: **BLOCKED** — `deploy-service.ps1`'s port-freeness
-      check has a bug that makes it throw regardless of whether the port
-      is actually free or occupied (see progress log). Nothing was
-      touched on the host (failed at the very first step, before any
-      clone/build/container) — deploy simply never ran. Needs an
-      interactive session to fix the script (this automation run cannot:
-      `svc-lab/automation/**` is deny-listed for Edit).
+- [x] M2 — Deploy: the blocking bug (see progress log) was fixed and
+      re-verified the same day by an interactive session — the fixed
+      `deploy-service.ps1` deployed this exact build cleanly end to end
+      on the first real attempt: vhost, TLS, log directory, and live
+      HTTPS all verified. Live at
+      https://clay-shrinkage-calculator.svc.julienika.cz. Also added the
+      AdSense auto-ads script (not present in the automated run's
+      original build, since that predated the ad-script rollout to the
+      template) before this deploy. ✔ 2026-09-07.
 - [ ] M3 — Monetization once an ad/payment account exists (blocked on
       Owner, same as the other svc-lab services).
 
 **Progress log** (newest first):
+- 2026-09-07 — Deployed. The `deploy-service.ps1` bug diagnosed below
+  was fixed by an interactive session the same day (see
+  `svc-lab/automation/HANDOVER.md` D9) and re-verified by deploying this
+  exact service through the fixed script — succeeded cleanly on the
+  first attempt. Live at
+  https://clay-shrinkage-calculator.svc.julienika.cz.
 - 2026-09-07 — PENDING APPROVAL: `deploy-service.ps1` needs a fix before
   any svc-lab automation run can deploy anything — logged 2026-09-07.
   Attempted deploy: `deploy-service.ps1 -Name clay-shrinkage-calculator
