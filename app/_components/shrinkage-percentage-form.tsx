@@ -33,12 +33,12 @@ export function ShrinkagePercentageForm() {
       </p>
       <div className="mt-3 flex flex-wrap gap-3">
         <label className="flex flex-col gap-1">
-          <span className="text-sm text-gray-600">Wet (greenware) size</span>
+          <span className="text-sm text-gray-600">Wet, freshly-formed size</span>
           <input
             className="w-32 rounded border border-gray-300 px-3 py-2"
             value={wetSize}
             onChange={(e) => setWetSize(e.target.value)}
-            aria-label="Wet or greenware size"
+            aria-label="Wet, freshly-formed size"
             inputMode="decimal"
           />
         </label>

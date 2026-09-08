@@ -6,7 +6,7 @@ import { JsonLd } from "@/lib/json-ld";
 export const metadata: Metadata = {
   title: "Predict Fired Size From Wet Clay",
   description:
-    "Enter a wet (greenware) size and your clay's shrinkage percentage to predict the finished fired size of a pottery piece.",
+    "Enter a wet, freshly-formed size and your clay's shrinkage percentage to predict the finished fired size of a pottery piece.",
 };
 
 const FAQ = [
@@ -18,7 +18,12 @@ const FAQ = [
   {
     question: "Does this account for both drying and firing shrinkage?",
     answer:
-      "Yes, as long as the shrinkage percentage you enter is a total wet-to-fired figure (which is what's usually meant by \"clay shrinkage %\" and what test tiles measure directly). Some data sheets separate drying and firing shrinkage into two numbers — if so, use the combined wet-to-fired total, not either stage alone.",
+      "Yes, as long as the shrinkage percentage you enter is a total wet-to-fired figure (which is what's usually meant by \"clay shrinkage %\" and what test tiles measure directly). Some data sheets separate drying and firing shrinkage into two numbers — if so, don't just add them: drying % is measured against the wet length and firing % against the dry length, so total % = drying% + firing% − (drying% × firing% ÷ 100). Simple addition overstates the total (a real example: 6.25% drying + 6.66% firing is 12.9% added, but the true combined total is 12.5%).",
+  },
+  {
+    question: "I want a piece to hold a certain volume when fired — can I just apply the percentage to volume?",
+    answer:
+      "No — this shrinkage percentage is linear (length/width/height), and volume shrinks by roughly three times that percentage. 11% linear shrinkage is close to 30% less volume, not 11% less. If you're sizing something for capacity (a mug, a bowl), work in linear dimensions and check the fired result, rather than scaling a target volume directly by this percentage.",
   },
 ];
 

@@ -6,7 +6,7 @@ import { JsonLd } from "@/lib/json-ld";
 export const metadata: Metadata = {
   title: "Clay Shrinkage Percentage Calculator",
   description:
-    "Calculate your clay's shrinkage percentage from a wet (or greenware) measurement and the fired measurement of the same test tile.",
+    "Calculate your clay's shrinkage percentage from a wet, freshly-formed measurement and the fired measurement of the same test tile.",
 };
 
 const FAQ = [
@@ -24,6 +24,11 @@ const FAQ = [
     question: "Does it matter what unit I measure in?",
     answer:
       "No — shrinkage percentage is a ratio, so inches, centimeters, or millimeters all give the same result as long as you use the same unit for both measurements.",
+  },
+  {
+    question: "Does the water content of my clay when I measure it matter?",
+    answer:
+      "Yes, more than you'd expect. Shrinkage while drying is roughly linear in how much water leaves the clay, so a wetter (softer) test tile shrinks more overall than a stiffer one of the same clay — a body that's typically 6% can shrink 7%+ measured soft. Mark and measure your test tile at the same stiffness you actually work at, right after forming, for a repeatable number.",
   },
 ];
 

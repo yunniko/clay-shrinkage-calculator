@@ -6,7 +6,7 @@ import { JsonLd } from "@/lib/json-ld";
 export const metadata: Metadata = {
   title: "What Size Should I Make My Pottery Before Firing?",
   description:
-    "Work backwards from the fired size you want to the wet (greenware) size you need to make now, using your clay's shrinkage percentage.",
+    "Work backwards from the fired size you want to the wet, freshly-formed size you need to make now, using your clay's shrinkage percentage.",
 };
 
 const FAQ = [

@@ -33,19 +33,18 @@ original build/test verification output.
 
 ## Decision record
 
-**D1 — Sourcing done via WebSearch synthesis, not direct WebFetch, because
-WebFetch was denied for this unattended automation run.** The svc-lab
-daily-build automation runs with no interactive approval surface; a tool
-call requiring manual approval (as WebFetch apparently does in this
-session) is auto-denied with no way to retry. Fell back to WebSearch,
-which returned directly quoted/paraphrased figures with attribution
-(Digitalfire's "Firing Shrinkage"/"Drying Shrinkage" glossary entries,
-plus The Pottery Wheel and Austin Gallery's reference chart as
-corroborating secondary sources) — a real, named, checkable primary
+**D1 — Sourcing originally done via WebSearch synthesis, not direct
+WebFetch, because WebFetch was denied for the unattended automation run
+that built this project.** The svc-lab daily-build automation runs with
+no interactive approval surface; a tool call requiring manual approval
+(as WebFetch apparently did in that session) is auto-denied with no way
+to retry. Fell back to WebSearch, which returned directly quoted/
+paraphrased figures with attribution — a real, named, checkable primary
 source, just not independently re-verified by reading the full page
-directly. If a future session has WebFetch available, re-verifying these
-figures directly against digitalfire.com would strengthen the citation
-from "search-synthesis quoted" to "directly read."
+directly. **Update, 2026-09-08: done.** The domain-expert review below
+(D7) had working WebFetch and read Digitalfire's pages directly — this
+caveat no longer applies to the figures it touched (it found and fixed a
+real error in the process, see D7).
 
 **D2 — Reference chart shows TOTAL wet-to-fired shrinkage, and explicitly
 warns against conflating it with dry-to-fired-only figures.** Digitalfire
@@ -96,6 +95,50 @@ port was free or occupied. Fixed same-day in
 exact build through the corrected script — succeeded cleanly on the
 first attempt.
 
+**D7 — Domain-expert review (2026-09-08) found a real inaccuracy in the
+highest-confidence row of the reference chart, and a labeling choice
+that undermined the tool's own stated purpose; both fixed.** Per
+`COMPANY\STANDARDS.md`'s "Domain depth" guidance, a `domain-expert`
+subagent re-read Digitalfire's pages directly (WebFetch worked this
+time — see D1) and cross-checked against real manufacturer data sheets.
+Full findings in `docs/domain-reference.md`. The core formula (D3/D4)
+and the measurement procedure taught on `/shrinkage-percentage` both
+checked out as correct, matching real ceramics practice almost
+verbatim. Fixed:
+- **The earthenware range was wrong** (5-8%): composing Digitalfire's
+  own two published figures (drying + firing shrinkage, correctly —
+  not by naive addition, see below) gives ~8.8-9.8% for typical
+  earthenware, and real terra cotta data (Plainsman L210) composes to
+  8.9-10.8% — entirely above the old ceiling. A potter using the old
+  range to size a replacement terra cotta piece would land about 3.5mm
+  short on a 10in piece. Fixed to 6-11%, confidence lowered from
+  "typical" to "approximate" to reflect how much "earthenware" actually
+  varies (talc-based low-fire white at the low end, plastic terra cotta
+  at the high end).
+- **"Wet (greenware)" field labels were the exact mistake this tool
+  exists to prevent someone from making**: "greenware" colloquially
+  means the bone-dry unfired piece, not the wet/freshly-formed stage —
+  offering it as a synonym for "wet" could lead someone to measure at
+  the wrong stage and get a fired-size prediction that's too small.
+  Relabeled to "wet, freshly-formed size" everywhere (forms, pages,
+  `lib/shrinkage.ts`'s error messages and doc comments).
+- **"Use the combined total" without the actual formula**: drying % and
+  firing % are measured against different base lengths, so
+  `total = drying% + firing% − (drying% × firing% ÷ 100)`, not simple
+  addition — verified against Digitalfire's own worked example. The
+  vague guidance was replaced with the real formula and that example.
+- Added FAQ entries covering four things the app previously didn't
+  mention at all: water content at time of measurement affects the
+  result meaningfully; firing temperature (cone) shifts shrinkage within
+  the same clay body; linear shrinkage % is NOT the same as volumetric %
+  (11% linear ≈ 30% less volume — a real risk for anyone sizing a piece
+  by capacity); and slip casting isn't what this toolset models (it
+  assumes plastic forming).
+- Noted the isotropy assumption (shrinkage is the same in every
+  direction) explicitly in `lib/shrinkage.ts` — confirmed as the correct
+  default for hand-thrown/hand-built ware, not valid for heavily
+  extruded/robocast forms.
+
 ## Owner action list
 
 - Monetization not yet live — blocked on the Owner (see
@@ -104,9 +147,6 @@ first attempt.
 
 ## Next steps and open questions
 
-- If a future session has working WebFetch, re-verify the
-  `lib/clay-shrinkage-reference.ts` figures by reading the Digitalfire
-  pages directly (see D1) rather than relying on search-result synthesis.
 - Consider a fifth tool (e.g. a batch/scale-multiplier calculator for
   sculptors making the same form at several target sizes) as a follow-up
   if this service's traffic justifies more investment — not built now to

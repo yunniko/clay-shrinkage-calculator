@@ -23,7 +23,17 @@ const FAQ = [
   {
     question: "What's the difference between drying shrinkage and firing shrinkage?",
     answer:
-      "Drying shrinkage happens as water leaves the clay between wet and bone-dry; firing shrinkage happens separately as the clay vitrifies in the kiln. The ranges in this chart are the TOTAL of both stages, from wet to fired — don't add a separately-published drying or firing figure to them, since that would double-count.",
+      "Drying shrinkage happens as water leaves the clay between wet and bone-dry; firing shrinkage happens separately as the clay vitrifies in the kiln. The ranges in this chart are the TOTAL of both stages, from wet to fired — don't add a separately-published drying or firing figure to them (they're measured against different base lengths, so simple addition overstates it — see the predict-fired-size calculator's FAQ for the actual formula).",
+  },
+  {
+    question: "Does firing temperature (cone) change these numbers?",
+    answer:
+      "Yes, within the same clay body — firing shrinkage generally increases with more heat work. These ranges are broad enough to cover a body's typical firing range, but a body pushed to a notably higher cone than usual (or a reduction-fired vs. oxidation-fired version of the same clay) can shift outside this range. Check your specific body's data sheet for the cone you're actually using.",
+  },
+  {
+    question: "Does this apply to slip casting?",
+    answer:
+      "Not directly — these figures (and this whole toolset) assume plastic forming (throwing, hand-building), where you measure a wet, freshly-formed piece. Slip casting starts from a liquid poured into a mold, and mold sizing is a related but different calculation (see ASTM C326 if you need the formal method) — don't plug a mold cavity dimension in as a \"wet size\" here.",
   },
 ];
 
@@ -78,13 +88,13 @@ export default function Page() {
       </table>
 
       <p className="mt-4 text-sm text-gray-500">
-        Sourced from Digitalfire&rsquo;s ceramics glossary plus corroborating
-        published ranges — see the code comment in this project&rsquo;s
+        Sourced from Digitalfire&rsquo;s ceramics glossary (read directly, not
+        search-summarized) plus real manufacturer data sheets — see
         <code className="mx-1 rounded bg-gray-100 px-1">
-          lib/clay-shrinkage-reference.ts
+          docs/domain-reference.md
         </code>
-        for full citations. Always confirm with your own test tile for
-        anything where the final size matters.
+        in this project for the full review and citations. Always confirm
+        with your own test tile for anything where the final size matters.
       </p>
 
       <section className="mt-10">
